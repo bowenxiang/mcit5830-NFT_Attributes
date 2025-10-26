@@ -15,7 +15,7 @@ with open('ape_abi.json', 'r') as f:
 
 ############################
 # Connect to an Ethereum node
-api_url = "https://rpc.ankr.com/eth"  # Using a public Ethereum RPC node
+api_url = "https://cloudflare-eth.com" 
 provider = HTTPProvider(api_url)
 web3 = Web3(provider)
 
@@ -39,9 +39,10 @@ def get_ape_info(ape_id):
         token_uri = contract.functions.tokenURI(ape_id).call()
         
         # 4. Convert the IPFS URI to an HTTP Gateway URL
-        # I use the Pinata gateway as suggested: https://gateway.pinata.cloud/ipfs/
+        # We use the Pinata gateway as suggested: https://gateway.pinata.cloud/ipfs/
         # The token_uri is in the format "ipfs://HASH/ID"
         ipfs_hash_path = token_uri.split('//')[-1]
+        
         metadata_url = f"https://gateway.pinata.cloud/ipfs/{ipfs_hash_path}"
         
         # 5. Fetch the metadata from the IPFS gateway
